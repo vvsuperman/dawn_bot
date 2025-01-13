@@ -1,3 +1,6 @@
+魔改了下，outlook无法由于认证受限，无法完全自动注册，所以改成outlook自动注册dawn后，手动到邮箱里邮件激活
+
+
 # 🌅 Dawn Extension Bot [v1.7]
 
 <div align="center">
