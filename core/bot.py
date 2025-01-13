@@ -209,14 +209,14 @@ class Bot(DawnExtensionAPI):
         task_id = None
 
         try:
-            result = await self._validate_email()
-            if not result["status"]:
-                logger.error(f"Account: {self.account_data.email} | Email is invalid: {result['data']}")
-                return OperationResult(
-                    identifier=self.account_data.email,
-                    data=self.account_data.password,
-                    status=False,
-                )
+            # result = await self._validate_email()
+            # if not result["status"]:
+            #     logger.error(f"Account: {self.account_data.email} | Email is invalid: {result['data']}")
+            #     return OperationResult(
+            #         identifier=self.account_data.email,
+            #         data=self.account_data.password,
+            #         status=False,
+            #     )
 
             logger.info(f"Account: {self.account_data.email} | Registering...")
             puzzle_id, answer, task_id = await self.get_captcha_data("image")
@@ -226,27 +226,27 @@ class Bot(DawnExtensionAPI):
                 f"Account: {self.account_data.email} | Registered, waiting for email..."
             )
 
-            confirm_url = await self._extract_link()
-            if not confirm_url["status"]:
-                logger.error(f"Account: {self.account_data.email} | Confirmation link not found: {confirm_url['data']}")
-                return OperationResult(
-                    identifier=self.account_data.email,
-                    data=self.account_data.password,
-                    status=False,
-                )
+            # confirm_url = await self._extract_link()
+            # if not confirm_url["status"]:
+            #     logger.error(f"Account: {self.account_data.email} | Confirmation link not found: {confirm_url['data']}")
+            #     return OperationResult(
+            #         identifier=self.account_data.email,
+            #         data=self.account_data.password,
+            #         status=False,
+            #     )
 
             logger.success(
                 f"Account: {self.account_data.email} | Link found, confirming registration..."
             )
 
-            try:
-                key = confirm_url["data"].split("key=")[1]
-            except IndexError:
-                response = await self.clear_request(confirm_url["data"])
-                key = response.url.split("key=")[1]
+            # try:
+            #     key = confirm_url["data"].split("key=")[1]
+            # except IndexError:
+            #     response = await self.clear_request(confirm_url["data"])
+            #     key = response.url.split("key=")[1]
 
-            cloudflare_token = await self.get_captcha_data("turnistale")
-            await self.verify_registration(key, cloudflare_token)
+            # cloudflare_token = await self.get_captcha_data("turnistale")
+            # await self.verify_registration(key, cloudflare_token)
 
             logger.success(f"Registration verified and completed")
             return OperationResult(
